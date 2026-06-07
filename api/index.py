@@ -5,10 +5,10 @@ import xml.etree.ElementTree as ET
 
 app = FastAPI(docs_url=None, redoc_url=None)
 
-# 你的专属密钥（我已经帮你完整填好了，千万别动这里！）
 TOKEN = "9Sc"
 ENCODING_AES_KEY = "RzYFJY1KxtNSf6Yrwtbdrh8Up5rDUaApFtxLKNOKquB"
-CORP_ID = "wwc62d41c4d8e389bf"
+# ⚠️ 常见天坑：这里一定要填“我的企业”页面最底部的企业ID（ww开头），千万不要填应用的 AgentId！
+CORP_ID = "wwc62d41c4d8e389bf" 
 
 crypto = WeChatCrypto(TOKEN, ENCODING_AES_KEY, CORP_ID)
 
@@ -22,7 +22,9 @@ async def verify_url(
     try:
         echo_str = crypto.check_signature(msg_signature, timestamp, nonce, echostr)
         return PlainTextResponse(content=echo_str)
-    except Exception:
+    except Exception as e:
+        # 这行代码是破局的关键！它会把报错原因精准打印到 Vercel 日志里
+        print(f"❌ 微信验证解密失败！原因: {e}")
         return PlainTextResponse(content="error", status_code=403)
 
 @app.post("/api")
@@ -44,5 +46,5 @@ async def receive_message(
             
         return PlainTextResponse(content="success")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"处理报错: {e}")
         return PlainTextResponse(content="success")
