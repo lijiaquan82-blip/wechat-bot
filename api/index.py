@@ -55,7 +55,7 @@ async def receive_message(
             if client:
                 prompt = f"你是一个硬核的研究助理。请用简洁锐利的语言，帮我总结或回应以下内容，不要超过100字：\n\n{user_input}"
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-3.1-pro',
                     contents=prompt,
                 )
                 print(f"✨ 脑电波分析完成: {response.text}")
