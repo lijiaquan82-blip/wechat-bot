@@ -2,4 +2,4 @@ wechatpy
 cryptography
 fastapi
 uvicorn
-google-generativeai
+google-genai
