@@ -66,3 +66,4 @@ async def receive_message(
     except Exception as e:
         print(f"处理报错: {e}")
         return PlainTextResponse(content="success")
+# 强制重启读取 API KEY
