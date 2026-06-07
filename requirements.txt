@@ -1,4 +1,5 @@
-fastapi
-uvicorn
 wechatpy
 cryptography
+fastapi
+uvicorn
+google-generativeai
